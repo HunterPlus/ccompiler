@@ -53,7 +53,7 @@ static int getprec(Token *tp)
 }
 
 /* Return an AST tree whose root is a binary operator */
-Anode *binexpr(int ptp){
+Anode *binexpr(int ptp){        /* ptp: previous token precedence */
     Token *tp;
     Anode *left, *right;
     
