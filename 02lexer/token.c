@@ -45,7 +45,7 @@ void gettoken(Token *token, int lim)
     } else {
         token->type = T_NAME;
         for (; --lim > 0; w++)
-            if (!isalnum(c = getch()) && c != '_') {
+            if (!isalnum(*w = getch()) && *w != '_') {
                 ungetch(*w);
                 *w = '\0';
                 return;
