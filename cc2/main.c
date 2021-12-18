@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     printf("\t.intel_syntax noprefix\n");
     printf("\t.global main\n");
     printf("main:\n");
-    printf("\tmov rax, %ld\n", strtol(p, &p, 10));
+    printf("\tmov\trax, %ld\n", strtol(p, &p, 10));
 
     while (*p) {
         if (*p == '+') {
