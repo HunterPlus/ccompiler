@@ -80,7 +80,7 @@ static void gen_stmt(Node *node) {
     case ND_BLOCK:
         for (Node *n = node->body; n; n = n->next)
             gen_stmt(n);
-            return;
+        return;
     case ND_RETURN:
         gen_expr(node->lhs);
         printf("\tjmp\t.L.return\n");
