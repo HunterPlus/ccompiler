@@ -2,6 +2,8 @@
 
 static int depth;
 
+static void gen_expr(Node *node);
+
 static int count(void) {
     static int i = 1;
     return i++;
@@ -18,9 +20,13 @@ static void pop(char *arg) {
 static int align_to(int n, int align) {
     return (n + align -1) / align * align;
 }
-static void gen_addr(Node *node) {
-    if (node->kind == ND_VAR) {
+static void gen_addr(Node *node) {    
+    switch (node->kind) {
+    case ND_VAR:
         printf("\tlea\t%d(%%rbp), %%rax\n", node->var->offset);
+        return;
+    case ND_DEREF:
+        gen_expr(node->lhs);
         return;
     }
     error_tok(node->tok, "not an lvalue");
@@ -37,6 +43,13 @@ static void gen_expr(Node *node) {
     case ND_VAR:
         gen_addr(node);
         printf("\tmov\t(%%rax), %%rax\n");
+        return;
+    case ND_DEREF:
+        gen_expr(node->lhs);
+        printf("\tmov\t(%%rax), %%rax\n");
+        return;
+    case ND_ADDR:
+        gen_addr(node->lhs);
         return;
     case ND_ASSIGN:
         gen_addr(node->lhs);
