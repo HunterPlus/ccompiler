@@ -103,9 +103,9 @@ Function *parse(Token *tok);
 /* type.c  */
 typedef enum {
     TY_INT,
-    TY_PTR,
-    TY_FUNC,
+    TY_PTR,    
 } TypeKind;
+
 struct Type {
     TypeKind kind;
     Type *base;         /* pointer      */
